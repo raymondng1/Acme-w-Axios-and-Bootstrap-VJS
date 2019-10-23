@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class ='container'> 
+    <h1> Acme w/ Bootstrap and Axios VJS</h1>
+    <ul class="nav nav-tabs">
+        <li class="nav-items">
+            <a class="nav-link active" id="companiesLink" href="#companies">
+                Companies
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#products" id="productsLink">
+                Products
+            </a>
+        </li>
+    </ul>
+    <h2 id="title"></h2>
+
+    <div id="results">
+    </div>
+    </div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
+    <script>
+
+        const results = document.getElementById('results');
+
+        const renderCompany = (companyData) => {
+            
+        }
+
+        const getCompany = () => {
+            axios.get('https://acme-users-api-rev.herokuapp.com/api/companies')
+            .then(response => {
+                console.log(response.data)
+                // render(data)
+            })
+        }
+        getCompany()
+        
+        
+    </script>
+</body>
+</html>
