@@ -24,27 +24,91 @@
     </ul>
     <h2 id="title"></h2>
 
-    <div id="results">
-    </div>
+    <table id="results" class="table">
+    </table>
     </div>
 
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js'></script>
     <script>
-
+        //GLOBAL CONSTANTS
         const results = document.getElementById('results');
+        const companyTabText = document.getElementById('companiesLink');
+        const productTabText = document.getElementById('productsLink');
 
+        //RENDER FUNCTIONS
         const renderCompany = (companyData) => {
-            
+            let htmlStr = `<thead><tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">State</th>
+            <th scope="col">Catchphrase</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Updated At</th>
+            </tr></thead>`;
+
+            htmlStr += `<tbody>`;
+            htmlStr += companyData.map(company => {
+                return `<tr>
+                        <th scope="row">${company.id}</th>
+                        <td>${company.name}</td>
+                        <td>${company.state}</td>
+                        <td>@${company.catchPhrase}</td>
+                        <td>${company.createdAt}</td>
+                        <td>${company.updatedAt}</td>
+                        </tr>`
+            })
+
+            htmlStr += `</tbody>`;
+            companyTabText.innerHTML = `Companies (${companyData.length})`;
+            results.innerHTML = htmlStr;
         }
 
+        const renderProducts = (productData) => {
+            let htmlStr = `<thead><tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Suggested Price</th>
+            <th scope="col">Description</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Updated At</th>
+            </tr></thead>`;
+
+            htmlStr += `<tbody>`;
+            htmlStr += productData.map(product => {
+                return `<tr>
+                        <th scope="row">${product.id}</th>
+                        <td>${product.name}</td>
+                        <td>@${product.suggestedPrice}</td>
+                        <td>${product.description}</td>
+                        <td>${product.createdAt}</td>
+                        <td>${product.updatedAt}</td>
+                        </tr>`
+            })
+
+            htmlStr += `</tbody>`;
+            productTabText.innerHTML = `Products (${productData.length})`;
+            results.innerHTML = htmlStr;
+        }
+
+        //PROMISES
         const getCompany = () => {
             axios.get('https://acme-users-api-rev.herokuapp.com/api/companies')
             .then(response => {
                 console.log(response.data)
-                // render(data)
+                renderCompany(response.data);
             })
         }
-        getCompany()
+
+        const getProducts = () => {
+            axios.get('https://acme-users-api-rev.herokuapp.com/api/products')
+            .then(response => {
+                console.log(response.data)
+                renderProducts(response.data);
+            })
+        }
+
+        //ON PAGE LOAD
+        getCompany();
         
         
     </script>
