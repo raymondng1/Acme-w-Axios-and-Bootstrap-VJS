@@ -107,6 +107,23 @@
             })
         }
 
+        window.addEventListener('hashchange', (e)=>{
+            if(location.hash === '#companies'){
+                results.innerHTML = '';
+                companyTabText.classList.add('active');
+                productTabText.classList.remove('active');
+                getCompany();
+            }
+            else if (location.hash === "#products") {
+                results.innerHTML = '';
+                productTabText.classList.add("active");
+                companyTabText.classList.remove('active');
+                console.log('hash change');
+                getProducts();
+            }
+        })
+
+        
         //ON PAGE LOAD
         getCompany();
         
